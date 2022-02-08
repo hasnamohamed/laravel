@@ -30,7 +30,7 @@ tr:nth-child(even) {
     <th>Description</th>
     <th><a href="">Category</a></th>
     <th>is Used</th>
-    <th colspan="2">Actions</th>
+    <th colspan="3">Actions</th>
   </tr>
   @foreach ($brands as $brand)
   <tr>
@@ -39,8 +39,9 @@ tr:nth-child(even) {
     <td>{{ $brand-> des }}</td>
     <td><a href="{{ route('categories.show', ['id'=>$brand -> id ]) }}"> {{ $brand->category->name }} </a> </td>
     <td><?php if($brand-> is_used) echo 'true'; else echo 'false'; ?></td>
-    <td><a href="/delete/{{ $brand -> id }}">Delete </a></td>
-    <td><a href="/brands/show/{{ $brand -> id }}">Show </a></td>
+    <td><a href="/brands/delete/{{ $brand -> id }}">Delete </a>
+    <a href="/brands/show/{{ $brand -> id }}"> Show </a>
+    <a href="/brands/edit/{{ $brand -> id }}"> edit </a></td>
   </tr>
   @endforeach
 

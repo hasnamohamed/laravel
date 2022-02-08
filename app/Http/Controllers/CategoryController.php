@@ -33,7 +33,16 @@ class CategoryController extends Controller
     {
         return view('category.create');
     }
-
+    public function edit($id){
+        $category=Category::find($id);
+        return view('category.edit',['category'=>$category]);
+    }
+    public function update(Store $request,$id){
+        $category=Category::find($id);
+        $category->name = $request['name'];
+        $category->save();
+        return redirect()->route('categories.index');
+    }
     public function save(Store $request)
     {
     
@@ -41,7 +50,6 @@ class CategoryController extends Controller
         $category -> name = $request['name'];
         $category->save(); // INSERT INTO TABLE 
         return redirect()->route('categories.index');
-        // save new category
     }
 
     public function delete($id)

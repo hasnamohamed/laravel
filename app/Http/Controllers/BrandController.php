@@ -52,4 +52,25 @@ class BrandController extends Controller
         }
         return redirect()->route('brands.index');
     }
+
+    public function edit($id)
+    {
+        $brand = Brand::find($id);
+        $categories = Category::all(); 
+        return view('brands.edit',['categories'=>$categories,'brand'=>$brand ]);
+    }
+
+    public function update(Store $request,$id)
+    {
+        $brand = Brand::find($id);
+        $brand -> name = $request['name'];
+        $brand -> des = $request['des'];
+        if($request -> is_used=='on')
+        $brand -> is_used = true;
+        else
+        $brand -> is_used = false;
+        $brand -> cat_id = $request['cat_id'];
+        $brand->save(); 
+        return redirect()->route('brands.index');
+    }
 }
