@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\BrandController;
+use App\Mail\MyTestMail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
-
-
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +16,21 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
-}); 
-/*Route::namespace('App\Http\Controllers')->group(function() {
-    Route::resource('/categories', 'CategoryController');
-    Route::resource('/brands', 'BrandController');
-});*/
+});
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+Route::get('send-mail', function () {
+    $details = [
+
+        'title' => 'Mail from ItSolutionStuff.com',
+
+        'body' => 'This is for testing email using smtp'
+
+    ];
+    Mail::to('hasnaamohammed538@gmail.com')->send(new \App\Mail\MyTestMail($details));
+ 
+})->name('very');
